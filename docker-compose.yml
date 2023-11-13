@@ -1,6 +1,15 @@
 version: '3'
 
 services:
+  postgres:
+      image: postgres:14-alpine
+      environment:
+        - POSTGRES_USER=root
+        - POSTGRES_PASSWORD=secret
+      ports:
+        - "5432:5432"
+      volumes:
+        - data-volume:/var/lib/postgresql/data
   ui:
     build:
       context: ./ui
@@ -40,3 +49,6 @@ services:
       - GATEWAY_BINARY_FILE=gatewayApp
       - WORK_DIR=${WORK_DIR}
       - CONFIG_PATH=${WORK_DIR}
+      
+volumes:
+  data-volume:

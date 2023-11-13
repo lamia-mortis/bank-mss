@@ -42,3 +42,26 @@
     http://localhost:8080 - ui
     http://localhost:8888 - gateway
 ```
+
+## Set Up Manually
+- `docker engine`, `docker compose` should already be installed, `docker engine` should run;
+- required: 
+    - `make 4.3`;
+    - `nodejs 18.16.1`;
+    - `protoc 3.21.12`;
+    - `go 1.21.3`;
+- `8080`, `8888`, `50051` ports of the host machine should not be in use; 
+- during the initial setup (first run) execute the following command from the **project root**:
+```
+    make dev_env_setup
+```
+- to run the project with all microservices:
+```
+    make dev_env_up
+```
+- the app will be available under the following origins:
+```
+    http://localhost:8080  - ui
+    http://localhost:8888  - gateway HTTP
+    localhost:50051        - gateway gRPC
+```

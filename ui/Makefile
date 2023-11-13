@@ -24,9 +24,13 @@ endif
 
 SERVER_CMD_FILE=cmd/main.go
 
-
-frontend:
+frontend_install:
 	npm --prefix ${FRONTEND_SRC_DIR} install
+
+frontend_run:
+	npm run --prefix ${FRONTEND_SRC_DIR} serve
+
+frontend_build:
 	npm run --prefix ${FRONTEND_SRC_DIR} build
 
 server_run:

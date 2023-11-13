@@ -29,7 +29,7 @@ WORKDIR ${WORK_DIR}
 ARG SERVER_BINARY_FILE=${SERVER_BINARY_FILE}
 ARG FRONTEND_SRC_DIR=${FRONTEND_SRC_DIR}
 
-RUN make frontend server_build
+RUN make frontend_install frontend_build server_build
 RUN chmod +x ${WORK_DIR}/${SERVER_BINARY_FILE}
 
 # build a tiny docker image
