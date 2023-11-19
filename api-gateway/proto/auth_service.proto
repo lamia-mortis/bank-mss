@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "gateway/pb";
+
+message RegisterUserRequest {
+    string username = 1;
+    string full_name = 2;
+    string email = 3;
+    string password = 4;
+}
+
+message RegisterUserResponse {
+    User user = 1;
+}
+
+message User {
+    string username = 1;
+    string full_name = 2;
+    string email = 3;
+    google.protobuf.Timestamp password_changed_at = 4;
+    google.protobuf.Timestamp created_at = 5;
+}
+
+service Auth {
+    rpc RegisterUser (RegisterUserRequest) returns (RegisterUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/register_user"
+            body: "*"
+        };
+    }
+}

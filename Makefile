@@ -19,7 +19,7 @@ dev_env_up: network postgres
 
 dev_ui_up:
     ## using $() to make the jobserver available
-	cd ui && $(MAKE) frontend_run && $(MAKE) server_run
+	cd ui && $(MAKE) frontend_run
 
 dev_gateway_up:
 	cd api-gateway && $(MAKE) server_run

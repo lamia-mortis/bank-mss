@@ -1,14 +1,28 @@
-package api
+package server
 
 import (
 	"context"
 	"gateway/pb"
+	"gateway/util"
 	"time"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *Server) RegisterUser(cxt context.Context, req *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
+type AuthServer struct {
+	pb.UnimplementedAuthServer
+	config util.Config
+}
+
+func newAuthServer(config util.Config) (*AuthServer, error) {
+	server := &AuthServer{
+		config: config,
+	}
+
+	return server, nil
+}
+
+func (server *AuthServer) RegisterUser(cxt context.Context, req *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
 	user := pb.User{
 		Username:          req.GetUsername(),
 		FullName:          req.GetFullName(),
