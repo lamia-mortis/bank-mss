@@ -30,7 +30,7 @@ func RunGrpcServer(config util.Config) {
 		}
 	}()
 
-	log.Info().Msgf("start gRPC server at %s", l.Addr().String())
+	log.Info().Msgf("start Gateway gRPC server at %s", l.Addr().String())
 
 	err = grpcServer.Serve(l)
 	if err != nil {

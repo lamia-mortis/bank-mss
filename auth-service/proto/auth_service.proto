@@ -2,10 +2,9 @@ syntax = "proto3";
 
 package pb;
 
-import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "gateway/pb";
+option go_package = "auth/pb";
 
 message RegisterUserRequest {
     string name = 1;
@@ -20,10 +19,5 @@ message RegisterUserResponse {
 }
 
 service Auth {
-    rpc RegisterUser (RegisterUserRequest) returns (RegisterUserResponse) {
-        option (google.api.http) = {
-            post: "/v1/register_user"
-            body: "*"
-        };
-    }
+    rpc RegisterUser (RegisterUserRequest) returns (RegisterUserResponse) {}
 }

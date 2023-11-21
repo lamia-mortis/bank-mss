@@ -50,7 +50,8 @@
     - `nodejs 18.16.1`;
     - `protoc 3.21.12`;
     - `go 1.21.3`;
-- `8080`, `8888`, `50051`, `5432` ports of the host machine should not be in use; 
+    - `golang-migrate 4.16.2`;
+- `8080`, `8888`, `50051`, `9090`, `5432` ports of the host machine should not be in use; 
 - during the initial setup (first run) execute the following command from the **project root**:
 ```
     make dev_env_setup
@@ -59,9 +60,14 @@
 ```
     make dev_env_up
 ```
+- if it is the first run and the DB is empty: 
+```
+    make db_setup
+```
 - the app will be available under the following origins:
 ```
     http://localhost:8080  - ui
     http://localhost:8888  - gateway HTTP
     localhost:50051        - gateway gRPC
+    localhost:9090         - auth gRPC
 ```

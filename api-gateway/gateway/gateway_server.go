@@ -31,7 +31,7 @@ func newGateway(ctx context.Context, conn *grpc.ClientConn, opts runtime.ServeMu
 func RunGatewayServer(config util.Config) {
 	jsonOption := runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
 		MarshalOptions: protojson.MarshalOptions{
-			UseProtoNames: true,
+			UseProtoNames: false,
 		},
 		UnmarshalOptions: protojson.UnmarshalOptions{
 			DiscardUnknown: true,
@@ -69,7 +69,7 @@ func RunGatewayServer(config util.Config) {
 		log.Fatal().Err(err).Msg("cannot create listener:")
 	}
 
-	log.Info().Msgf("start HTTP gateway server at %s", listener.Addr().String())
+	log.Info().Msgf("start HTTP Gateway server at %s", listener.Addr().String())
 
 	err = http.Serve(listener, mux)
 
