@@ -4,8 +4,10 @@ go 1.21.3
 
 require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
+	github.com/lib/pq v1.10.9
 	github.com/rs/zerolog v1.31.0
 	github.com/spf13/viper v1.17.0
+	golang.org/x/crypto v0.14.0
 	google.golang.org/grpc v1.59.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0
 	google.golang.org/protobuf v1.31.0

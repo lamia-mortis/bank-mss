@@ -33,3 +33,6 @@ migrate_up:
 
 migrate_down:
 	migrate -path db/migrations -database "$(DB_URL)" -verbose down
+
+queries:
+	sqlc generate

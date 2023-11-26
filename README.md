@@ -51,6 +51,7 @@
     - `protoc 3.21.12`;
     - `go 1.21.3`;
     - `golang-migrate 4.16.2`;
+    - `sqlc 1.24.0`;
 - `8080`, `8888`, `50051`, `9090`, `5432` ports of the host machine should not be in use; 
 - during the initial setup (first run) execute the following command from the **project root**:
 ```
