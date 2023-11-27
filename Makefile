@@ -32,8 +32,21 @@ network:
     ## check if the network already exists
 	docker network inspect bank-mss >/dev/null 2>&1 || docker network create bank-mss
 
-postgres:
-	docker run --name postgres --network bank-mss -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:14-alpine
-
 db_setup:
 	cd auth-service && make create_db migrate_up
+
+define postgres =
+	if [ "$(docker ps -q -f name=postgres)" ]; then 
+		echo "Postgres container is already running" 
+	elif  [ "$(docker ps -a -q -f name=postgres)" ]; then 
+		echo "Starting existing postgres container..." 
+		docker start postgres 
+	else 
+		echo "Pulling postgres image and creating container..."
+		docker run --name postgres --network bank-mss -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:14-alpine 
+	fi
+endef
+
+postgres: ; $(value postgres)
+
+.ONESHELL:
