@@ -23,10 +23,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build UI Docker image
-        run: docker build --file ./ui/Dockerfile --build-arg="WORK_DIR=/var/www/app" --build-arg="SERVER_BINARY_FILE=staticServer" --build-arg="FRONTEND_SRC_DIR=resources" --build-arg="NVM_VERSION=0.39.5" --build-arg="NODE_VERSION=18.16.1" -t lamiamortis/ui:1.0
+        run: |- 
+          cd ui
+          docker build --build-arg="WORK_DIR=/var/www/app" --build-arg="SERVER_BINARY_FILE=staticServer" --build-arg="FRONTEND_SRC_DIR=resources" --build-arg="NVM_VERSION=0.39.5" --build-arg="NODE_VERSION=18.16.1" -t lamiamortis/ui:1.0 .
       
       - name: Build Gateway Docker image
-        run: docker build --file ./api-gateway/Dockerfile --build-arg="WORK_DIR=/var/www/app" --build-arg="GATEWAY_BINARY_FILE=gatewayApp" -t lamiamortis/gateway:1.0
+        run:  |- 
+          cd api-gateway
+          docker build --build-arg="WORK_DIR=/var/www/app" --build-arg="GATEWAY_BINARY_FILE=gatewayApp" -t lamiamortis/gateway:1.0 .
 
       - name: Push UI Docker image to Docker Hub
         run: docker push lamiamortis/ui:1.0
