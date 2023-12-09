@@ -69,7 +69,7 @@ func RunGatewayServer(config util.Config) {
 		log.Fatal().Err(err).Msg("cannot create listener:")
 	}
 
-	log.Info().Msgf("start HTTP Gateway server at %s", listener.Addr().String())
+	log.Info().Msgf("start Gateway HTTP server at %s", listener.Addr().String())
 
 	err = http.Serve(listener, mux)
 

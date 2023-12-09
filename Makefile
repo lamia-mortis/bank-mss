@@ -12,8 +12,8 @@ k8s_start:
 ## dev environment
 dev_env_setup:
 	cd ui && make frontend_install && go mod tidy
-	cd api-gateway && go mod tidy
-	cd auth-service && go mod tidy
+	cd ../api-gateway && go mod tidy && cp .env.dist .env
+	cd ../auth-service && go mod tidy && cp .env.dist .env
 
 dev_env_up: network postgres
 	make -j3 dev_ui_up dev_gateway_up dev_auth_up

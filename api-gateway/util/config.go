@@ -8,12 +8,12 @@ type Config struct {
 	Environment       string `mapstructure:"ENVIRONMENT"`
 	HTTPServerAddress string `mapstructure:"HTTP_SERVER_ADDRESS"`
 	GRPCServerAddress string `mapstructure:"GRPC_SERVER_ADDRESS"`
+	AuthServerAddress string `mapstructure:"AUTH_SERVER_ADDRESS"`
 }
 
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
-	viper.SetConfigName("app")
-	viper.SetConfigType("env")
+	viper.SetConfigFile(".env")
 
 	viper.AutomaticEnv()
 

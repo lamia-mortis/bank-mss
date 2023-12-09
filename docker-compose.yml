@@ -6,10 +6,10 @@ services:
       environment:
         - POSTGRES_USER=root
         - POSTGRES_PASSWORD=secret
+        - POSTGRES_DB=auth
       ports:
         - "5432:5432"
-      volumes:
-        - data-volume:/var/lib/postgresql/data
+
   ui:
     build:
       context: ./ui
@@ -48,7 +48,31 @@ services:
     environment:
       - GATEWAY_BINARY_FILE=gatewayApp
       - WORK_DIR=${WORK_DIR}
-      - CONFIG_PATH=${WORK_DIR}
-      
-volumes:
-  data-volume:
+      - AUTH_SERVER_ADDRESS=auth-service:9090
+
+  auth-service:
+      build:
+        context: ./auth-service
+        args:
+          - AUTH_BINARY_FILE=authApp
+          - WORK_DIR=${WORK_DIR}
+      restart: always
+      ports:
+        - "9090:9090"
+      deploy:
+        mode: replicated
+        replicas: 1
+      environment:
+        - AUTH_BINARY_FILE=authApp
+        - WORK_DIR=${WORK_DIR}
+        - AUTH_DB_URL=postgresql://root:secret@postgres:5432/auth?sslmode=disable
+      depends_on:
+        - postgres
+      entrypoint:
+        [
+          "/var/www/app/wait-for.sh",
+          "postgres:5432",
+          "--",
+          "/var/www/app/entrypoint.sh"
+        ]
+      command: [ "/var/www/app/authApp" ]

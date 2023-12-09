@@ -3,6 +3,7 @@
 ### MANUAL SETUP
 
 Directive should be run from the microservice root folder
+- create `.env` file, using `.env.dist` as a template;
 - run *gRPC* server on the `localhost:9090`:
 ```
     make server_run

@@ -25,7 +25,7 @@ func newAuthServer(config util.Config) (pb.AuthServer, error) {
 }
 
 func (server *AuthServer) RegisterUser(cxt context.Context, req *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
-	conn, err := grpc.Dial("0.0.0.0:9090", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	conn, err := grpc.Dial(server.config.AuthServerAddress, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "cannot connect the Auth server: %s", err)
 	}
